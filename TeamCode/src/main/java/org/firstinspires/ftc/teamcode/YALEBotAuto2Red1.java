@@ -89,12 +89,23 @@ public class YALEBotAuto2Red1 extends LinearOpMode {
         robot.beltMotor.setPower(0.0);
         sleep(100);
 
-        //  Step 4:  Drive Forwards for 2 seconds
-        //   Reason: Park on and/or Push Cap Ball off of Center Vortex
+        //  Step 4.1:  Drive Forwards for 2 seconds
+        //   Reason: Preparation to Park on and/or Push Cap Ball off of Center Vortex
         robot.leftDrive.setPower(TURN_SPEED);
         robot.rightDrive.setPower(FORWARD_SPEED);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+        sleep(100);
+
+        //  Step 4.2: Drive Backwards for 1.5 seconds
+        //   Reason: Park on and/or Push Cap Ball off of Center Vortex
+        robot.leftDrive.setPower(-FORWARD_SPEED);
+        robot.rightDrive.setPower(-FORWARD_SPEED);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
