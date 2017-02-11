@@ -39,8 +39,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
-@Autonomous(name="YALEBot Auto Ver. Paulsen 1", group="Linear Opmode")
-public class YALEBotAuto2 extends LinearOpMode {
+@Autonomous(name="YALEBot Auto Ver. Paulsen: Blue 1", group="Linear Opmode")
+public class YALEBotAuto2Blue1 extends LinearOpMode {
 
     /* Declare OpMode members. */
     YALEBotHardware robot = new YALEBotHardware();
@@ -48,7 +48,7 @@ public class YALEBotAuto2 extends LinearOpMode {
 
 
     static final double FORWARD_SPEED = 1;
-    static final double TURN_SPEED = 1;
+    static final double TURN_SPEED = 0.8;
 
     @Override
     public void runOpMode() {
@@ -90,11 +90,12 @@ public class YALEBotAuto2 extends LinearOpMode {
         robot.leftShoot.setPower(0.0);
         robot.rightShoot.setPower(0.0);
         robot.beltMotor.setPower(0.0);
+        sleep(100);
 
         //  Step 4:  Drive Forwards for 2 seconds
         //   Reason: Park on and/or Push Cap Ball off of Center Vortex
         robot.leftDrive.setPower(FORWARD_SPEED);
-        robot.rightDrive.setPower(0.25);
+        robot.rightDrive.setPower(TURN_SPEED);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 2.0)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
