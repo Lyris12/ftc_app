@@ -39,7 +39,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
-@Autonomous(name="YALEBot Auto", group="Linear Opmode")
+@Autonomous(name="YALEBot Auto Old", group="Linear Opmode")
 public class YALEBotAuto extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -47,7 +47,7 @@ public class YALEBotAuto extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
 
-    static final double FORWARD_SPEED = 1;
+    static final double FORWARD_SPEED = .6;
     static final double TURN_SPEED = 1;
 
     @Override
@@ -66,24 +66,24 @@ public class YALEBotAuto extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path, ensuring that the Auto mode has not been stopped alozng the way
+        // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
 
 
         //robot.leftDrive.setPower(0);
        // robot.rightDrive.setPower(0);
 
         // Step 2:  Spin right for 1.3 seconds
-        robot.leftShoot.setPower(FORWARD_SPEED*.8);
-        robot.rightShoot.setPower(FORWARD_SPEED*.8);
+        robot.leftShoot.setPower(FORWARD_SPEED);
+        robot.rightShoot.setPower(FORWARD_SPEED);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+        while (opModeIsActive() && (runtime.seconds() < 4.0)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
        //  Step 3:  Drive Forwards for 2 seconds
 
-        robot.beltMotor.setPower(FORWARD_SPEED);
+        robot.beltMotor.setPower(TURN_SPEED);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 2.0)) {
             telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());

@@ -33,14 +33,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
-@Autonomous(name="YALEBot Auto Ver. Paulsen: Blue 2", group="Linear Opmode")
-public class YALEBotAuto2Blue1 extends LinearOpMode {
+@Autonomous(name="YALEBot Auto new", group="Linear Opmode")
+public class YALEBotAutoDrive extends LinearOpMode {
 
     /* Declare OpMode members. */
     YALEBotHardware robot = new YALEBotHardware();
@@ -52,6 +49,7 @@ public class YALEBotAuto2Blue1 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
         /*
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
@@ -66,8 +64,12 @@ public class YALEBotAuto2Blue1 extends LinearOpMode {
         waitForStart();
 
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
-        //  Step 1:  Turn on Ball Shooters
-        //   Reason: Launches Balls towards Center Vortex
+
+
+        //robot.leftDrive.setPower(0);
+       // robot.rightDrive.setPower(0);
+
+        // Step 2:  Spin right for 1.3 seconds
         robot.leftShoot.setPower(FORWARD_SPEED);
         robot.rightShoot.setPower(FORWARD_SPEED);
         runtime.reset();
@@ -76,37 +78,25 @@ public class YALEBotAuto2Blue1 extends LinearOpMode {
             telemetry.update();
         }
 
-        //  Step 2:  Turn on Conveyor Belt
-        //   Reason: Load 2nd Balls into Ball Shooter
+       //  Step 3:  Drive Forwards for 2 seconds
+
         robot.beltMotor.setPower(TURN_SPEED);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 2.0)) {
             telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-
-        //  Step 3:  Turn off Ball-Shooting Mechanisms
-        //   Reason: Conserves robot battery
-        robot.leftShoot.setPower(0.0);
-        robot.rightShoot.setPower(0.0);
-        robot.beltMotor.setPower(0.0);
-        sleep(100);
-
-        //  Step 4:  Drive Forwards for 2 seconds
-        //   Reason: Park on and/or Push Cap Ball off of Center Vortex
         robot.leftDrive.setPower(TURN_SPEED);
-        robot.rightDrive.setPower(0.8);
+        robot.rightDrive.setPower(TURN_SPEED);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 2.0)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
-        robot.leftDrive.setPower(0.0);
-        robot.rightDrive.setPower(0.0);
-
         telemetry.addData("Path", "Complete");
         telemetry.update();
         sleep(1000);
     }
 }
+

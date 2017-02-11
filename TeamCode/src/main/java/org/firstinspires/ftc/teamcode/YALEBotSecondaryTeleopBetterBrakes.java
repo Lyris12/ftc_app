@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="YALEBotTeleopNew", group="Linear Opmode")  // @Autonomous(...) is the other common choice
+@TeleOp(name="YALEBotTeleopNewBetterBrakes", group="Linear Opmode")  // @Autonomous(...) is the other common choice
 //@Disabled
 public class YALEBotSecondaryTeleopBetterBrakes extends LinearOpMode {
     YALEBotHardware robot = new YALEBotHardware();

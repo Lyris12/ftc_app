@@ -44,8 +44,8 @@ public class YALEBotAuto2Blue2 extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
 
-    static final double FORWARD_SPEED = 1;
-    static final double TURN_SPEED = 0.8;
+    static final double FORWARD_SPEED = .6;
+    static final double TURN_SPEED = 1;
 
     @Override
     public void runOpMode() {
@@ -62,22 +62,22 @@ public class YALEBotAuto2Blue2 extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path, ensuring that the Auto mode has not been stopped alozng the way
+        // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
         //  Step 1:  Turn on Ball Shooters
         //   Reason: Launches Balls towards Center Vortex
-        robot.leftShoot.setPower(0.8);
-        robot.rightShoot.setPower(0.8);
+        robot.leftShoot.setPower(FORWARD_SPEED);
+        robot.rightShoot.setPower(FORWARD_SPEED);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+        while (opModeIsActive() && (runtime.seconds() < 8.0)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
         //  Step 2:  Turn on Conveyor Belt
         //   Reason: Load 2nd Balls into Ball Shooter
-        robot.beltMotor.setPower(FORWARD_SPEED);
+        robot.beltMotor.setPower(TURN_SPEED);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.25)) { // Runs for +0.25 Seconds; Reason: Step 3
+        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
             telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -91,8 +91,8 @@ public class YALEBotAuto2Blue2 extends LinearOpMode {
 
         //  Step 4.1:  Drive Forwards for 2 seconds
         //   Reason: Preparation to Park on and/or Push Cap Ball off of Center Vortex
-        robot.leftDrive.setPower(FORWARD_SPEED);
-        robot.rightDrive.setPower(TURN_SPEED);
+        robot.leftDrive.setPower(TURN_SPEED);
+        robot.rightDrive.setPower(0.8);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 2.0)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());

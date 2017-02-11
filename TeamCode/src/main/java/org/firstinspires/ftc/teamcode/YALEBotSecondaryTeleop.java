@@ -44,8 +44,8 @@ public class YALEBotSecondaryTeleop extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
 
-    boolean shoot = false;
-
+    double servoPos = 0;
+    String servoPosString;
 
     @Override
     public void runOpMode() {
@@ -63,17 +63,26 @@ public class YALEBotSecondaryTeleop extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-
+            servoPos = robot.release.getPosition();
+            servoPosString = Double.toString(servoPos);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("Servo Position:", servoPosString);
             telemetry.update();
 
             robot.leftDrive.setPower(gamepad1.left_stick_y);
             robot.rightDrive.setPower(gamepad1.right_stick_y);
 
-            if (gamepad2.right_trigger > 0) {
-                robot.leftShoot.setPower(0.8);
-                robot.rightShoot.setPower(0.8);
+            if (gamepad1.right_trigger > 0) {
+                robot.liftMotor.setPower(1.0);
+            } else if (gamepad1.left_trigger > 0) {
+                robot.liftMotor.setPower(-1.0);
+            } else {
+                robot.liftMotor.setPower(0);
+            }
 
+            if (gamepad2.right_trigger > 0) {
+                robot.leftShoot.setPower(0.6);
+                robot.rightShoot.setPower(0.6);
             } else {
                 robot.leftShoot.setPower(0);
                 robot.rightShoot.setPower(0);
@@ -92,24 +101,15 @@ public class YALEBotSecondaryTeleop extends LinearOpMode {
             } else {
                 robot.harvestMotor.setPower(0);
             }
-/*
-            if (gamepad2.left_bumper) {
-                robot.harvestMotor.setPower(-0.5);
-                } else {
-                robot.harvestMotor.setPower(0);
+
             }
 
-            if (gamepad2.dpad_up) {
-                robot.leftLift.setPower(1);
-                robot.rightLift.setPower(1);
-            } else if (gamepad2.dpad_down) {
-                robot.leftLift.setPower(-1);
-                robot.rightLift.setPower(-1);
+            if (gamepad1.left_bumper) {
+                robot.release.setPosition(0.5);
             } else {
-                robot.leftLift.setPower(0);
-                robot.rightLift.setPower(0);
+                robot.release.setPosition(0);
             }
-            */
+
         }
     }
-}
+
