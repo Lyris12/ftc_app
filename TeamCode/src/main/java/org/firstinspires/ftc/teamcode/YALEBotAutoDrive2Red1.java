@@ -33,14 +33,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
-@Autonomous(name="YALEBot Auto Ver. Paulsen: Blue 2", group="Linear Opmode")
-public class YALEBotAuto2Blue1 extends LinearOpMode {
+@Autonomous(name="YALEBot Auto Ver. Paulsen: Red 1", group="Linear Opmode")
+public class YALEBotAutoDrive2Red1 extends LinearOpMode {
 
     /* Declare OpMode members. */
     YALEBotHardware robot = new YALEBotHardware();
@@ -92,12 +89,23 @@ public class YALEBotAuto2Blue1 extends LinearOpMode {
         robot.beltMotor.setPower(0.0);
         sleep(100);
 
-        //  Step 4:  Drive Forwards for 2 seconds
-        //   Reason: Park on and/or Push Cap Ball off of Center Vortex
-        robot.leftDrive.setPower(TURN_SPEED);
-        robot.rightDrive.setPower(0.8);
+        //  Step 4.1:  Drive Forwards for 2 seconds
+        //   Reason: Preparation to Park on and/or Push Cap Ball off of Center Vortex
+        robot.leftDrive.setPower(0.8);
+        robot.rightDrive.setPower(TURN_SPEED);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+        sleep(100);
+
+        //  Step 4.2: Drive Backwards for 1.5 seconds
+        //   Reason: Park on and/or Push Cap Ball off of Center Vortex
+        robot.leftDrive.setPower(-FORWARD_SPEED);
+        robot.rightDrive.setPower(-FORWARD_SPEED);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
