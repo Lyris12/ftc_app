@@ -30,18 +30,22 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
 TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="YALEBotTeleop", group="Linear Opmode")  // @Autonomous(...) is the other common choice
+@TeleOp(name="YALEBotTeleopNew", group="Linear Opmode")  // @Autonomous(...) is the other common choice
 //@Disabled
 public class YALEBotTeleop extends LinearOpMode {
-    YALEBotHardware robot   = new YALEBotHardware();
-    private ElapsedTime     runtime = new ElapsedTime();
+    YALEBotHardware robot = new YALEBotHardware();
+    private ElapsedTime runtime = new ElapsedTime();
+
+
+    double servoPos = 0;
+    String servoPosString;
 
     @Override
     public void runOpMode() {
@@ -54,31 +58,58 @@ public class YALEBotTeleop extends LinearOpMode {
          */
         robot.init(hardwareMap);
         waitForStart();
+
         runtime.reset();
 
         while (opModeIsActive()) {
+
+            servoPos = robot.release.getPosition();
+            servoPosString = Double.toString(servoPos);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("Servo Position:", servoPosString);
             telemetry.update();
 
             robot.leftDrive.setPower(gamepad1.left_stick_y);
             robot.rightDrive.setPower(gamepad1.right_stick_y);
-        /*
-            if (gamepad1.right_bumper) {711
-                BallShootLeft.setPower(1.0);
-                BallShootRight.setPower(1.0);
-                BallShootBelt.setPower(0.1);
+
+            if (gamepad1.right_trigger > 0) {
+                robot.liftMotor.setPower(1.0);
+            } else if (gamepad1.left_trigger > 0) {
+                robot.liftMotor.setPower(-1.0);
+            } else {
+                robot.liftMotor.setPower(0);
             }
-            else {
-                BallShootLeft.setPower(0);
-                BallShootRight.setPower(0);
-                BallShootBelt.setPower(0);
+
+            if (gamepad2.right_trigger > 0) {
+                robot.leftShoot.setPower(0.6);
+                robot.rightShoot.setPower(0.6);
+            } else {
+                robot.leftShoot.setPower(0);
+                robot.rightShoot.setPower(0);
             }
+
+            if (gamepad2.right_bumper) {
+                robot.beltMotor.setPower(1.0);
+            } else {
+                robot.beltMotor.setPower(0);
+
+            }
+
+
+            if (gamepad2.left_bumper) {
+                robot.harvestMotor.setPower(1.0);
+            } else {
+                robot.harvestMotor.setPower(0);
+            }
+
+            }
+
             if (gamepad1.left_bumper) {
-                BallScooper.setPower(0.5);
+                robot.release.setPosition(1);
+            } else {
+                robot.release.setPosition(0);
             }
-            else {
-                BallScooper.setPower(0);
-            } */
+
         }
     }
-}
+

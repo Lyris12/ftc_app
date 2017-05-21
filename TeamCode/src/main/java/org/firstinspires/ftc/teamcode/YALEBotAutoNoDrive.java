@@ -30,78 +30,70 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
 TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="YALEBotlift", group="Linear Opmode")  // @Autonomous(...) is the other common choice
-//@Disabled
-public class YALEBotLift extends LinearOpMode {
-    NussLift robot   = new NussLift();
-    private ElapsedTime     runtime = new ElapsedTime();
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+
+@Autonomous(name="YALEBot Auto NoDrive", group="Linear Opmode")
+public class YALEBotAutoNoDrive extends LinearOpMode {
+
+    /* Declare OpMode members. */
+    YALEBotHardware robot = new YALEBotHardware();
+    private ElapsedTime runtime = new ElapsedTime();
 
 
-    //boolean shoot = false;
-
+    static final double FORWARD_SPEED = .6;
+    static final double TURN_SPEED = 1;
 
     @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
 
-        /* eg: Initialize the hardware variables. Note that the strings used here as parameters
-         * to 'get' must correspond to the names assigned during the robot configuration
-         * step (using the FTC Robot Controller app on the phone).
+        /*
+         * Initialize the drive system variables.
+         * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
+
+        // Send telemetry message to signify robot waiting;
+        telemetry.addData("Status", "Ready to run");    //
+        telemetry.update();
+
+        // Wait for the game to start (driver presses PLAY)
         waitForStart();
+        sleep(5000);
+
+        // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
+
+
+        //robot.leftDrive.setPower(0);
+       // robot.rightDrive.setPower(0);
+
+        // Step 2:  Spin right for 1.3 seconds
+        robot.leftShoot.setPower(FORWARD_SPEED);
+        robot.rightShoot.setPower(FORWARD_SPEED);
         runtime.reset();
-        double reversenuss;
-
-
-        while (opModeIsActive()) {
-
-
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
+        while (opModeIsActive() && (runtime.seconds() < 4.0)) {
+            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
-
-            reversenuss = -gamepad1.left_trigger;
-
-            robot.leftLift.setPower(gamepad1.right_trigger);
-            robot.leftLift.setPower(reversenuss);
-
-
-        //    robot.leftShoot.setPower(gamepad2.right_trigger );
-          //  robot.rightShoot.setPower(gamepad2.right_trigger);
-
-//            robot.beltMotor.setPower(gamepad2.left_trigger);
-
-            telemetry.addData("leftLift: ", gamepad1.right_trigger);
-            telemetry.addData("leftLift: ", gamepad1.left_trigger);
-
-
-            /*if (gamepad2.right_bumper)
-                robot.harvestMotor.setPower(0.5);
-
-                else
-                robot.harvestMotor.setPower(0);
-            */
-
-
-//
-
-
-         /*   if (gamepad2.left_bumper)
-                    robot.harvestMotor.setPower(-0.5);
-
-                 else
-                    robot.harvestMotor.setPower(0);
-*/
-    //
-
-                    }
         }
+
+       //  Step 3:  Drive Forwards for 2 seconds
+
+        robot.beltMotor.setPower(TURN_SPEED);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+
+        telemetry.addData("Path", "Complete");
+        telemetry.update();
+        sleep(1000);
     }
+}
+

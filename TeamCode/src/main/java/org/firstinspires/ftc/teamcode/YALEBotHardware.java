@@ -19,8 +19,8 @@ public class YALEBotHardware
     public DcMotor harvestMotor = null;
     public DcMotor liftMotor = null;
     public Servo release = null;
-    //public DcMotor leftLift = null;
-    //public DcMotor rightLift = null;
+  //  public DcMotor leftLift = null;
+   // public DcMotor rightLift = null;
     //public TouchSensor leftTouch;
     //public TouchSensor rightTouch;
     //public OpticalDistanceSensor distanceSensor;
@@ -46,11 +46,11 @@ public class YALEBotHardware
         leftShoot = hwMap.dcMotor.get("leftShoot");
         rightShoot = hwMap.dcMotor.get("rightShoot");
         beltMotor = hwMap.dcMotor.get("beltMotor");
-        harvestMotor = hwMap.dcMotor.get("harvestMotor");
+      harvestMotor = hwMap.dcMotor.get("harvestMotor");
         liftMotor = hwMap.dcMotor.get("liftMotor");
         release = hwMap.servo.get("release");
         //leftLift = hwMap.dcMotor.get("leftLift");
-        //rightLift = hwMap.dcMotor.get("rightLift");
+       // rightLift = hwMap.dcMotor.get("rightLift");
         //leftTouch = hwMap.touchSensor.get("leftTouch");
         //rightTouch = hwMap.touchSensor.get("rightTouch");
         //distanceSensor = hardwareMap.opticalDistanceSensor.get("distanceSensor");
@@ -59,12 +59,12 @@ public class YALEBotHardware
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
         leftShoot.setDirection(DcMotor.Direction.FORWARD);
         rightShoot.setDirection(DcMotor.Direction.REVERSE);
-        beltMotor.setDirection(DcMotor.Direction.REVERSE);
-        harvestMotor.setDirection(DcMotor.Direction.REVERSE);
+       beltMotor.setDirection(DcMotor.Direction.REVERSE);
+       harvestMotor.setDirection(DcMotor.Direction.REVERSE);
         liftMotor.setDirection(DcMotor.Direction.FORWARD);
         release.setDirection(Servo.Direction.FORWARD);
-        //leftLift.setDirection(DcMotor.Direction.REVERSE);
-        //rightLift.setDirection(DcMotor.Direction.FORWARD);
+  //      leftLift.setDirection(DcMotor.Direction.REVERSE);
+//        rightLift.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all motors to zero power
         leftDrive.setPower(0);
@@ -74,9 +74,12 @@ public class YALEBotHardware
         beltMotor.setPower(0);
         harvestMotor.setPower(0);
         liftMotor.setPower(0);
-        release.setPosition(0.5);
-        //leftLift.setPower(0);
-        //rightLift.setPower(0);
+        release.setPosition(0);
+
+        //leftHarvest.setPower(0);
+        //harvestMotor.setPower(0);
+      //  leftLift.setPower(0);
+    //    rightLift.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -85,9 +88,10 @@ public class YALEBotHardware
         leftShoot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightShoot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         beltMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        harvestMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+       harvestMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+       /// leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 

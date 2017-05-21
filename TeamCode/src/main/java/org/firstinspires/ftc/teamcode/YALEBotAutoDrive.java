@@ -36,7 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="YALEBot Auto new", group="Linear Opmode")
+@Autonomous(name="YALEBot Auto Drive", group="Linear Opmode")
 public class YALEBotAutoDrive extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -62,7 +62,7 @@ public class YALEBotAutoDrive extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
+        sleep(5000);
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
 
 
